@@ -9,18 +9,21 @@ import authRoutes from "../BACKEND/routes/auth.routes.js";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import bodyParser from "body-parser";
 import messagerouter from "./routes/message.routes.js";
+import usersrouter from "./routes/users.routes.js";
 
 
 
 const app = express();
 
-console.log("Mongo ui : ", process.env.MONGO_DB_URI);
+//console.log("Mongo ui : ", process.env.MONGO_DB_URI);
 
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB before starting the server
 app.use(cookieParser());
 
+
+//parse the req body so that we could use req.
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -32,6 +35,7 @@ connectToMongoDB();
 
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messagerouter);
+app.use("/api/users",usersrouter);
 
 app.listen(PORT, () => {
     
